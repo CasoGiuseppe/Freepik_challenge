@@ -1,0 +1,102 @@
+
+.isBlocked {
+  max-height: 100vh;
+  overflow: hidden;
+
+  &::before {
+    @include UI-keyAnimation(opacity) {
+      0% { background: rgba($c-black, 0) }
+      100% { background: rgba($c-black, .5); }
+    };
+
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    width: 100vw;
+
+    background: rgba($c-black, .5);
+    content: '';
+    z-index: 2;
+
+    animation-name: opacity;
+    animation-duration: .4s;
+    animation-timing-function: $a-ease-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.modal {
+  $modal: &;
+
+  @include UI-keyAnimation(appear) {
+    0% { transform: translateY(-100%) translateX(-50%) }
+    100% { transform: translateY(-50%) translateX(-50%) }
+  };
+
+  flex-direction: column;
+  left: 50%;
+  max-width: 80vw;
+  padding: 10px;
+  position: fixed;
+  top: 50%;
+  width: 100%;
+
+  background: $c-gray-800;
+  text-align: right;
+  z-index: 3;
+
+  transform: translateY(-50%) translateX(-50%);
+
+  animation-name: appear;
+  animation-duration: .4s;
+  animation-timing-function: $a-ease-out;
+  animation-fill-mode: forwards;
+
+  @include breakpoint('tablet-pt') {
+    max-width: px2rem($base * 80);
+  }
+
+  &__close {
+    @include text--xxsmall;
+
+    flex: auto;
+    height: px2rem($base * 4);
+    padding: px2rem($base - 3) px2rem($base);
+    position: relative;
+    width: px2rem($base * 4);
+    
+    background: $c-core-blue;
+    border-radius: 50%;
+
+    &::before,
+    &::after {
+      height: 1px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      width: 50%;
+
+      background: $c-white;
+      content: '';
+
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    &::before {
+      transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    }
+
+    &::after {
+      transform: translateX(-50%) translateY(-50%) rotate(135deg);
+    }
+
+    + #{$modal}__wrap {
+      margin-top: px2rem($base * 2);
+    }
+  }
+
+  &__wrap {
+    text-align: left;
+  }
+}

@@ -1,0 +1,49 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
+
+:root {
+  --custom-load-message: 'wait for update data'
+}
+
+* {
+  box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &::selection {
+    background-color: $c-core-green;
+    color: $c-white
+  }
+}
+
+html,
+body {
+  color: $c-gray-600;
+}
+
+html,
+body,
+#app {
+  @include text--regular;
+  @include text--medium;
+	padding: 0;
+	margin: 0;
+
+  background: $c-gray-800;
+}
+
+#app {
+  align-items: flex-start;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  padding: px2rem($base * 3);
+}
+
+.loader {
+  @include UI-spinner(20, 5, $c-white, var(--custom-load-message));
+  width: 100%;
+  text-align: center;
+}

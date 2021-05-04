@@ -1,0 +1,56 @@
+.button {
+  --current-color: #{$c-black};
+  @include text--xsmall;
+
+  padding: px2rem($base) px2rem($base * 3);
+
+  background: var(--current-color);
+  border-radius: px2rem($base);
+  color: $c-white;
+
+  transition: background .6s $a-ease-out;
+
+  &--is-common {
+    @include btnHover($c-core-blue);
+    --current-color: #{$c-core-blue};
+  }
+
+  &--is-delete {
+    @include btnHover($c-red);
+    --current-color: #{$c-red};
+  }
+
+  &--is-update {
+    @include btnHover($c-core-blue);
+    --current-color: #{$c-core-blue}; 
+  }
+
+  &--is-add {
+    @include btnHover($c-core-blue);
+    --current-color: #{$c-core-green};
+
+    align-items: center;
+    display: flex;
+    bottom: px2rem($base * 2);
+    height: px2rem($base * 15);
+    justify-content: center;
+    padding: 0;
+    position: fixed;
+    right: px2rem($base * 2);
+    width: px2rem($base * 15);
+
+    border-radius: 50%;
+    box-shadow: 0px 0px ($base * 1px) 0px rgba(0,0,0,0.75);
+
+    text-transform: uppercase;
+  }
+
+  &--is-full-width {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: default;
+    --current-color: #{$c-gray-700}; 
+  } 
+}

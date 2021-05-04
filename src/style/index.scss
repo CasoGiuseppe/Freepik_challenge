@@ -1,0 +1,12 @@
+// base style
+@import 'base/settings';
+@import 'base/tools';
+@import 'base/generics';
+@import 'base/elements';
+@import 'base/animations';
+
+// components style
+@import 'partials/courses';
+@import 'partials/buttons';
+@import 'partials/modal';
+@import 'partials/form';

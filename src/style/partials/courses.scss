@@ -1,0 +1,63 @@
+.courses {
+  max-width: #{$grid__bp-xl * 1px};
+  flex: 1;
+  color: $c-white;
+
+  table {
+    width: 100%;
+
+    tr {
+      position: relative
+    }
+
+    th,
+    td {
+      @include text--light;
+      @include text--small;
+
+      padding: px2rem($base * 2) px2rem($base);
+      color: $c-white;
+
+      * {
+        + * {
+          margin-left: px2rem($base * 2);
+        }
+      }
+
+      + td,
+      + th {
+        &::before {
+          position: absolute;
+          height: 40%;
+          left: 0;
+          top: 50%;
+          width: 1px;
+
+          border-left: 1px dotted rgba($c-white, .2);
+          content: '';
+
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    thead {
+      th {
+        @include text--medium;
+        position: relative;
+
+        border-top: 1px solid rgba($c-white, .2);
+        border-bottom: 1px solid rgba($c-white, .2);
+        color: $c-core-blue;
+        text-align: left;
+      }
+    }
+
+    tbody {
+      td {
+        position: relative;
+        border-bottom: 1px solid rgba($c-white, .2);
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+//- CUSTOM FUNTIONS:
+//- convert px to rem
+$browser-context: 16;
+@function px2rem($pixels, $context: $browser-context) {
+  @return ($pixels / $context) * 1rem;
+}
+
+//- typography mixins
+@mixin text--light {
+  font-family: $Quicksand, sans-serif;
+  font-weight: $light;
+}
+
+@mixin text--regular {
+  font-family: $Quicksand, sans-serif;
+  font-weight: $regular;
+}
+
+@mixin text--bold {
+  font-family: $Quicksand, sans-serif;
+  font-weight: $bold;
+}
+
+@mixin text--xxxbig {
+  font-size: px2rem(34);
+}
+
+@mixin text--xxbig {
+  font-size: px2rem(30);
+}
+
+@mixin text--xbig {
+  font-size: px2rem(24);
+}
+
+@mixin text--big {
+  font-size: px2rem(22);
+}
+
+@mixin text--medium {
+  font-size: px2rem(16);
+}
+
+@mixin text--small {
+  font-size: px2rem(14);
+}
+
+@mixin text--xsmall {
+  font-size: px2rem(12);
+}
+
+@mixin text--xxsmall {
+  font-size: px2rem(10);
+}
+
+//- colors
+@mixin darken($color) {
+  $color: darken($color,15%);
+  background: $color;
+}
+
+@mixin btnHover($color) {
+  @include breakpoint('tablet-pt') {
+    &:not([disabled]) {
+      &:hover,
+      &:focus {
+        @include darken($color)
+      }
+    }
+  }
+}
+
+@mixin UI-spinner($size, $borderSize, $color, $message: '') {
+  &::after {
+    display: block;
+    height: #{$size * 1px};
+    margin: #{$base * 1px} auto;
+    width: #{$size * 1px};
+
+    border-radius: 50%;
+    border: #{$borderSize * 1px} solid $color;
+    border-color: $color transparent $color transparent;
+    content: "";
+
+    animation: spinner 1.2s linear infinite;
+  }
+  &::before {
+    display: block;
+    margin-top: #{$base * 1px};
+    order: 2;
+
+    content: $message;
+    color: $color;
+  }
+}
+
+@mixin UI-keyAnimation($name) {
+  @keyframes #{$name} {
+    @content
+  }
+}
+
+//- generate breakpoints
+//- @param breakpoint {string} :
+//- only-phone = from 0 to 576 {mobile}
+//- tablet-pt = from 768 {tablet portrait}
+//- tablet-ld = from 992 {tablet landscape}
+//- desktop = from 1140 {desktop}
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+ 
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}

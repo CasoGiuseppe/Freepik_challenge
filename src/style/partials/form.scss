@@ -1,0 +1,50 @@
+.form {
+  $form: &;
+
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 45%;
+
+    &[type=text] {
+      width: 100%;
+    }
+  }
+  
+  textarea {
+    width: 100%;
+  }
+
+  &__title {
+    @include text--light;
+    @include text--medium;
+
+    width: 100%;
+    color: $c-white;
+
+    + * {
+      margin-top: px2rem($base * 3)
+    }
+  }
+
+  &__field {
+    @include text--xsmall;
+
+    padding: px2rem($base * 2) px2rem($base);
+
+    border: none;
+    border-radius: (($base - 3) * 1px);
+    color: $c-gray-700;
+
+    + * {
+      margin-top: px2rem($base * 2);
+    }
+
+    &--is-half {
+      width: 50%;
+    }
+  }
+}

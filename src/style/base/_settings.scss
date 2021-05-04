@@ -1,0 +1,59 @@
+//- custom colors
+$c-white: #fff;
+$c-black: #000;
+$c-red: #ff0000;
+
+//- main series
+$c-core-green: #00BED7;
+$c-core-blue: #138BBF;
+$c-core-darken: #052549;
+
+//- gray series
+$c-gray-100: #FAFAFA;
+$c-gray-300: #D2D2D2;
+$c-gray-600: #9B9B9B;
+$c-gray-700: #757575;
+$c-gray-800: #2B2B2B;
+
+//- font name
+$Quicksand: 'Quicksand';
+
+//- custom fonts weight
+$light: 300;
+$regular: 400;
+$bold: 700;
+
+//- margin/padding
+$base: 5;
+
+//- grid 
+$grid__bp-sm: 600;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1280;
+$grid__bp-xxl: 1640;
+$grid__cols: 12;
+
+//- custom easing transition
+$a-ease-in: cubic-bezier(.75, -.03, .83, .6);
+$a-ease-out: cubic-bezier(.17, .67, .17, 1.01);
+$a-elastic: cubic-bezier(.08, 1.48, .69, 1.14);
+$a-elastic-out: cubic-bezier(.5,-0.26,.78,.5);
+
+$map-grid-props: (
+  '-xs': 0,
+  '-sm': $grid__bp-sm,
+  '-md': $grid__bp-md,
+  '-lg': $grid__bp-lg,
+  '-xl': $grid__bp-xl,
+  '-xxl': $grid__bp-xxl,
+);
+
+//- breakpoints
+$breakpoints: (
+  'only-phone' : (max-width: #{$grid__bp-sm + px}),
+  'tablet-pt' : (min-width: #{$grid__bp-md + px}),
+  'tablet-ld' : (min-width: #{$grid__bp-lg + px}),
+  'desktop' : (min-width: #{$grid__bp-xl + px}),
+  'large-desktop' : (min-width: #{$grid__bp-xxl + px})
+);
