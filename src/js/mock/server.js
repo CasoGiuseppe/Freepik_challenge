@@ -6,23 +6,6 @@ let server = new Server({
     courses: Model,
   },
 
-  // temp
-  // seeds(server) {
-  //   server.create('course', {
-  //     title: 'HTML',
-  //     description: 'ciccio pasticcio uno',
-  //     duration: 90,
-  //     completed: false
-  //   })
-
-  //   server.create('course', {
-  //     title: 'javascript',
-  //     description: 'ciccio pasticcio due',
-  //     duration: 190,
-  //     completed: true
-  //   })
-  // },
-
   routes() {
     this.namespace = API_NAMESPACE;
 

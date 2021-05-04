@@ -1,5 +1,5 @@
 export const API_NAMESPACE = 'api'
-export const API_DELAY = 1000
+export const API_DELAY = 500
 export const API_ENDPOINT = 'courses'
 export const BASE_FORM = [
   {
