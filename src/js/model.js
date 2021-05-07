@@ -2,6 +2,16 @@ import { API_NAMESPACE, API_ENDPOINT } from './partials/constants';
 import { errorHandle } from './partials/helpers';
 
 class CoursesModel {
+  results = []
+
+  get filteredResults() {
+    return this.results
+  }
+
+  set filteredResults(items) {
+    this.results = items
+  }
+
   // GET: return all
   async loadCourses() {
     try {

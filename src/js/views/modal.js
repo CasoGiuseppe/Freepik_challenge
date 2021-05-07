@@ -22,6 +22,10 @@ class Modal {
     this.#modal = null
   }
 
+  exist () {
+    return document.querySelector('.modal')
+  }
+
   #closeButton () {
     const close = document.createElement('button')
     close.className = 'modal__close'

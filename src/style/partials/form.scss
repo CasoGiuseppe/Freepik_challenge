@@ -6,18 +6,6 @@
   display: flex;
   justify-content: space-between;
 
-  input {
-    width: 45%;
-
-    &[type=text] {
-      width: 100%;
-    }
-  }
-  
-  textarea {
-    width: 100%;
-  }
-
   &__title {
     @include text--light;
     @include text--medium;
@@ -30,21 +18,10 @@
     }
   }
 
-  &__field {
-    @include text--xsmall;
-
-    padding: px2rem($base * 2) px2rem($base);
-
-    border: none;
-    border-radius: (($base - 3) * 1px);
-    color: $c-gray-700;
-
+  input,
+  textarea {
     + * {
       margin-top: px2rem($base * 2);
-    }
-
-    &--is-half {
-      width: 50%;
     }
   }
 }

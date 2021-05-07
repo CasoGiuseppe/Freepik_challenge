@@ -1,6 +1,8 @@
 export const API_NAMESPACE = 'api'
 export const API_DELAY = 500
 export const API_ENDPOINT = 'courses'
+export const MIN_DIGIT = 2
+export const DEBOUNCE = 700
 export const BASE_FORM = [
   {
     id: 'title',
@@ -14,6 +16,7 @@ export const BASE_FORM = [
   {
     id: 'description',
     field: 'textarea',
+    style: '--is-textarea',
     attributes: [
       { placeholder: 'Add your course description' },
       { 'auto-size': false },

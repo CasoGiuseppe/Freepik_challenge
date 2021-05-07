@@ -22,7 +22,7 @@ class Form {
     const exclude = ['checked', 'content']
 
     if (node.type) field.type = node.type // optional
-    field.className = `form__field ${node.style ? `form__field${node.style}` : null}`
+    field.className = `form__field field ${node.style ? `field${node.style}` : ''}`
 
     // set attributes
     // from attributes array

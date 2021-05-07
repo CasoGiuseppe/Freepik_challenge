@@ -92,6 +92,10 @@ class Courses {
     this.#container.prepend(row)
   }
 
+  isLoading () {
+    return document.querySelector('.loader')
+  }
+
   showEmptyResults () {
     this.#emptyTable();
 

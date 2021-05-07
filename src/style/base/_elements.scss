@@ -18,6 +18,11 @@ ul, ol, li, h1, h2, h3, h4, figure, button, p, form {
   list-style: none
 }
 
+input,
+textarea {
+  border: none;
+}
+
 figure,
 picture {
   img,

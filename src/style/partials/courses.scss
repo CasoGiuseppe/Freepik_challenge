@@ -1,6 +1,8 @@
 .courses {
   max-width: #{$grid__bp-xl * 1px};
   flex: 1;
+  width: 100%;
+  
   color: $c-white;
 
   table {

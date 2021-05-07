@@ -3,14 +3,27 @@ import { coursesView } from './views/courses';
 import { subscribe } from './partials/subscribers';
 import { modal } from './views/modal';
 import { form } from './views/partials/form';
-import { BASE_FORM, FILTER_FIELD } from './partials/constants'
+import { filter } from './views/partials/filter';
+import {
+  BASE_FORM,
+  FILTER_FIELD,
+  MIN_DIGIT,
+  DEBOUNCE
+} from './partials/constants'
 
 class Controler {
-  #eventLoad = async () => {
-    coursesView.showSpinner()
+  #debounce = null;
 
+  #eventLoad = async () => {
+    // show spinner if not exist
+    coursesView.isLoading() ? null : coursesView.showSpinner()
+
+    // load courses from API
+    // set results variables
     const { courses } = await coursesModel.loadCourses()
-    courses.length > 0 ? coursesView.render(courses) : coursesView.showEmptyResults()
+    coursesView.filteredResults = courses
+
+    courses.length > 0 ? coursesView.render(coursesView.filteredResults) : coursesView.showEmptyResults()
   }
 
   #eventDelete = async (id) => {
@@ -59,11 +72,34 @@ class Controler {
 
   #eventAdd = async ({ newAttribute }) => {
     await coursesModel.addCourse(newAttribute)
-    this.#eventRemoveModal()
+    modal.exist() ? this.#eventRemoveModal() : null
     this.#eventLoad()
   }
 
   #eventRemoveModal = () => modal.remove()
+
+  #eventFilter = ({ value }) => {
+    // clear debounce
+    clearTimeout(this.#debounce);
+
+    if (value.length > MIN_DIGIT) {
+      if (this.getFilteredResults(value).length > 0) {
+        // create debounce
+        this.#debounce = setTimeout(() => {
+          coursesView.render(this.getFilteredResults(value))
+          clearTimeout(this.#debounce);
+        }, DEBOUNCE);
+      } else {
+        coursesView.showEmptyResults()
+      }
+    } else {
+      coursesView.render(coursesView.filteredResults)
+    }
+  }
+
+  getFilteredResults(partial) {
+    return coursesView.filteredResults.filter((node) => node.title.includes(partial.toLowerCase()))
+  }
 
   async init () {
     // register subscribers
@@ -77,8 +113,41 @@ class Controler {
     subscribe('onFillModal', this.#eventFillModal);
     subscribe('onCloseModal', this.#eventRemoveModal);
 
+    // filter register events
+    subscribe('onFilter', this.#eventFilter);
+
     coursesView.addHandlerRender();
     coursesView.addCourse()
+
+    // set filter field
+    filter.setFilterEvent('#filter')
+
+    this.#eventAdd({
+      newAttribute: {
+        title: 'javascript',
+        description: 'pasticcio',
+        duration: 2,
+        completed: true
+      }
+    })
+
+    this.#eventAdd({
+      newAttribute: {
+        title: 'html',
+        description: 'pasticcio',
+        duration: 2,
+        completed: true
+      }
+    })
+
+    this.#eventAdd({
+      newAttribute: {
+        title: 'css',
+        description: 'pasticcio',
+        duration: 2,
+        completed: true
+      }
+    })
   }
 }
 

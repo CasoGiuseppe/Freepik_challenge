@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  * {
+    flex: 1;
+  }
+
+  + * {
+    margin-top: px2rem($base * 3);
+  }
+
+  &__title {
+    @include text--medium;
+    @include text--xxbig;
+    
+    flex: 2;
+    color: $c-white;
+
+    > span {
+      @include text--light
+    }
+  }
+}

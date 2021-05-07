@@ -1,0 +1,20 @@
+.field {
+  @include text--xsmall;
+  padding: px2rem($base * 2);
+  width: 45%;
+
+  border-radius: px2rem($base * 3);  
+  color: $c-gray-700;
+
+  &[type=text] {
+    width: 100%;
+  }
+
+  &--is-textarea {
+    width: 100%;
+  }
+
+  &--is-half {
+    width: 50%;
+  }
+}
