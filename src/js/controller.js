@@ -15,15 +15,18 @@ class Controler {
   #debounce = null;
 
   #eventLoad = async () => {
+    // clear filter
+    filter.emptyFilter()
+
     // show spinner if not exist
     coursesView.isLoading() ? null : coursesView.showSpinner()
 
     // load courses from API
     // set results variables
     const { courses } = await coursesModel.loadCourses()
-    coursesView.filteredResults = courses
 
-    courses.length > 0 ? coursesView.render(coursesView.filteredResults) : coursesView.showEmptyResults()
+    // display results
+    this.#setDisplayedResults( courses )
   }
 
   #eventDelete = async (id) => {
@@ -32,6 +35,9 @@ class Controler {
   }
 
   #eventUpdate = async ({ id, newAttribute, source = 'list' }) => {
+    // clear filter
+    filter.emptyFilter()
+
     await coursesModel.updateCourse({ id, newAttribute })
     if (source === 'modal') {
       this.#eventRemoveModal()
@@ -82,23 +88,37 @@ class Controler {
     // clear debounce
     clearTimeout(this.#debounce);
 
-    if (value.length > MIN_DIGIT) {
-      if (this.getFilteredResults(value).length > 0) {
-        // create debounce
-        this.#debounce = setTimeout(() => {
-          coursesView.render(this.getFilteredResults(value))
-          clearTimeout(this.#debounce);
-        }, DEBOUNCE);
-      } else {
-        coursesView.showEmptyResults()
-      }
+    // case filter value is < accepted min digit
+    if (value.length < MIN_DIGIT) {
+      this.#setDisplayedResults(coursesView.filteredResults)
+      return false;
+    }
+
+    if (this.#getFilteredResults(value).length > 0) {
+      // create debounce
+      this.#debounce = setTimeout(() => {
+        coursesView.render(this.#getFilteredResults(value))
+        clearTimeout(this.#debounce);
+      }, DEBOUNCE);
     } else {
-      coursesView.render(coursesView.filteredResults)
+      coursesView.showEmptyResults()
     }
   }
 
-  getFilteredResults(partial) {
+  #getFilteredResults(partial) {
     return coursesView.filteredResults.filter((node) => node.title.includes(partial.toLowerCase()))
+  }
+
+  #setDisplayedResults(res) {
+    // if empty results
+    if (res.length == 0)  {
+      coursesView.showEmptyResults()
+      return false
+    }
+
+    coursesView.filteredResults = res.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    coursesView.render(coursesView.filteredResults)
+      
   }
 
   async init () {
@@ -120,7 +140,34 @@ class Controler {
     coursesView.addCourse()
 
     // set filter field
-    filter.setFilterEvent('#filter')
+    filter.setFilterEventFor('#filter')
+
+    // this.#eventAdd({
+    //   newAttribute: {
+    //     title: 'javascript',
+    //     description: 'desc',
+    //     duration: 2,
+    //     completed: false
+    //   }
+    // })
+
+    // this.#eventAdd({
+    //   newAttribute: {
+    //     title: 'html',
+    //     description: 'desc',
+    //     duration: 2,
+    //     completed: false
+    //   }
+    // })
+
+    // this.#eventAdd({
+    //   newAttribute: {
+    //     title: 'css',
+    //     description: 'desc',
+    //     duration: 2,
+    //     completed: false
+    //   }
+    // })
   }
 }
 

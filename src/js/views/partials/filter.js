@@ -11,12 +11,16 @@ class Filter {
     this.#field = document.querySelector(id)
   }
 
-  setFilterEvent(id) {
+  setFilterEventFor(id) {
     this.fieldNode = id
     this.#field.addEventListener('input', () => publish('onFilter', {
-      value: this.fieldNodeValue
-    }
-  ))
+        value: this.fieldNodeValue
+      }
+    ))
+  }
+
+  emptyFilter () {
+    this.#field.value = ''
   }
 }
 
