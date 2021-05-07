@@ -121,33 +121,6 @@ class Controler {
 
     // set filter field
     filter.setFilterEvent('#filter')
-
-    this.#eventAdd({
-      newAttribute: {
-        title: 'javascript',
-        description: 'pasticcio',
-        duration: 2,
-        completed: true
-      }
-    })
-
-    this.#eventAdd({
-      newAttribute: {
-        title: 'html',
-        description: 'pasticcio',
-        duration: 2,
-        completed: true
-      }
-    })
-
-    this.#eventAdd({
-      newAttribute: {
-        title: 'css',
-        description: 'pasticcio',
-        duration: 2,
-        completed: true
-      }
-    })
   }
 }
 
